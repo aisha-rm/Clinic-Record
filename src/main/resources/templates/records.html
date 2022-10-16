@@ -4,16 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/records-stylesheet.css}" />
     <title>Clinic Records</title>
 </head>
 <body>
     <div class="topnav">
-        <a th:href="@{'/'}">Form</a>
-        <a th:href="@{'/records'}">Records</a>        
+        <a th:href="@{/}">Form</a>
+        <a th:href="@{/records}">Records</a>        
     </div>
 
     <div class="container">
-        <table>
+        <table border="1">
             <tr>
                 <th>Date</th>
                 <th>Time</th>
@@ -22,6 +23,16 @@
                 <th>Medication Prescribed</th>
                 <th>Cost of Medication</th>
                 <th></th>
+            </tr>
+
+            <tr th:each="appt:${apptList}">
+                <td th:text="${appt.date}"></td>
+                <td th:text="${appt.time}"></td>
+                <td th:text="${appt.name}"></td>
+                <td th:text="${appt.diagnosis}"></td>
+                <td th:text="${appt.medication}"></td>
+                <td th:text="${appt.cost}"></td>
+                <td> <a role="button" th:href="@{/}" class="table-button">Update</a> </td>
             </tr>
         </table>
     </div>

@@ -4,26 +4,29 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{'/form-stylesheet.css'}" />
+    <link rel="stylesheet" th:href="@{/form-stylesheet.css}" />
     <title>Clinic Information</title>
 </head>
 
 <body>
     <div class="topnav">
-        <a th:href="@{'/'}">Form</a>
-        <a th:href="@{'/records'}">Records</a>
+        <a th:href="@{/}">Form</a>
+        <a th:href="@{/records}">Records</a>
     </div>
 
     <div class="container">
-        <h2>Appointment Details</h2>
-        <form method="post" th:action="@{'/submitform'}" >
-            <input type="date">
-            <input type="text" placeholder="Appointment Time">
-            <input type="text" placeholder="Patient Name">
-            <input type="text" placeholder="Diagnosis">
-            <input type="text" placeholder="Medication Prescribed">
-            <input type="text" placeholder="Medication Cost">
+        <h2>Patient Details</h2>
+        <form method="post" th:action="@{/submitform}" th:object="${appt}">
+            <label>Appointment Date:</label>
+            <input type="date" style="color:black" th:field="*{date}">
+            <label>Appointment Time:</label>
+            <input type="time" style="color:black" th:field="*{time}">
+            <input type="text" placeholder="Patient Name" th:field="*{name}">
+            <input type="text" placeholder="Diagnosis" th:field="*{diagnosis}">
+            <input type="text" placeholder="Medication Prescribed" th:field="*{medication}">
+            <input type="text" placeholder="Medication Cost" th:field="*{cost}">
             <input type="submit" value="Submit">
+            <input type="hidden" th:field="*{id}">
         </form>
     </div>    
 </body>
