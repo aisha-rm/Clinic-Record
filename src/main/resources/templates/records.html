@@ -5,17 +5,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/records-stylesheet.css}" />
-    <title>Clinic Records</title>
+    <title>Clinic Record</title>
 </head>
 <body>
     <div class="topnav">
         <a th:href="@{/}">Form</a>
-        <a th:href="@{/records}">Records</a>        
+        <a th:href="@{/records}" class="active">Records</a>        
+    </div>
+
+    <div th:if="${status}=='success'" class ="alert success">
+           <!--only displays when the FlashAttribute it evaluates i.e status is equal success-->
+        <strong>You successfully submitted the form!</strong>
+    </div>
+
+    <div th:if="${status}=='failed'" class="alert">
+        <strong>Failed to submit form</strong>
     </div>
 
     <div class="container">
-        <table border="1">
-            <tr>
+        <table>
+            <tr class="head">
                 <th>Date</th>
                 <th>Time</th>
                 <th>Patient Name</th>
@@ -26,13 +35,13 @@
             </tr>
 
             <tr th:each="appt:${apptList}">
-                <td th:text="${appt.date}"></td>
+                <td th:text="${#dates.format(appt.date,'dd-MM-yyyy')}"></td>
                 <td th:text="${appt.time}"></td>
                 <td th:text="${appt.name}"></td>
                 <td th:text="${appt.diagnosis}"></td>
                 <td th:text="${appt.medication}"></td>
-                <td th:text="${appt.cost}"></td>
-                <td> <a role="button" th:href="@{/}" class="table-button">Update</a> </td>
+                <td th:text="${#numbers.formatCurrency(appt.cost)}"></td>
+                <td> <a role="button" th:href="@{/(id=${appt.id})}" class="table-button">Update</a> </td>
             </tr>
         </table>
     </div>

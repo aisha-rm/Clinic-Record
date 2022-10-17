@@ -10,7 +10,7 @@
 
 <body>
     <div class="topnav">
-        <a th:href="@{/}">Form</a>
+        <a th:href="@{/}" class="active">Form</a>
         <a th:href="@{/records}">Records</a>
     </div>
 
@@ -26,6 +26,7 @@
             <input type="text" placeholder="Medication Prescribed" th:field="*{medication}">
             <input type="text" placeholder="Medication Cost" th:field="*{cost}">
             <input type="submit" value="Submit">
+            <!--must add ID field, though hidden,so that it is included in POST req payload and appropriately updates an existing item, else a new item is created in datastore-->
             <input type="hidden" th:field="*{id}">
         </form>
     </div>    
