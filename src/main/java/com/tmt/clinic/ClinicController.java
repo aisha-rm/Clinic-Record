@@ -5,8 +5,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,7 +33,9 @@ public class ClinicController {
     }
 
     @PostMapping("/submitform")
-    public String submitForm(Appt appt, RedirectAttributes redirectAttributes){
+    public String submitForm(@Valid Appt appt, BindingResult result, RedirectAttributes redirectAttributes){
+        if (result.hasErrors()) return "form";
+        
         String status = Constants.SUCCESS_STATUS;
 
         int index = getIndex(appt.getId());
@@ -46,6 +51,7 @@ public class ClinicController {
         //RedirectAttributes temporarily store data like status that survives the redirect and is used in generating the redirected page
         redirectAttributes.addFlashAttribute("status", status);
         return "redirect:/records";
+              
     }
 
     @GetMapping("/records")

@@ -4,6 +4,8 @@ package com.tmt.clinic;
 import java.util.Date;
 import java.util.UUID;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -11,11 +13,20 @@ public class Appt {
     //set datetime format to be in sync with default format from the input in the form template
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date date;
+    
     private String time;
+
+    @NotBlank(message="Name cannot be blank")
     private String name;
+
+    @NotBlank(message="Diagnosis cannot be blank")
     private String diagnosis;
+
     private String medication;
+
+    @Min(value = 0, message="Cost cannot be negative")
     private int cost;
+    
     private String id;
 
 
